@@ -1,4 +1,4 @@
-# react-native-a2ui
+# react-native-the-a2ui
 
 A2UI renderer for React Native
 

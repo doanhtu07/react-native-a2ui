@@ -32,11 +32,11 @@ Breaking the convention costs something: a function that calls the backend hides
 
 ## Who owns what
 
-| Layer                        | Owns                                                                                       |
-| ---------------------------- | ------------------------------------------------------------------------------------------ |
-| Agent (server)               | Handling events, calling business APIs, replying with `updateDataModel`/`updateComponents` |
-| Host app                     | Catalog functions (device behaviour) and the `actionHandler` (transport to the agent)      |
-| `react-native-a2ui` renderer | Calls `props.action()` on press. No API knowledge                                          |
+| Layer                            | Owns                                                                                       |
+| -------------------------------- | ------------------------------------------------------------------------------------------ |
+| Agent (server)                   | Handling events, calling business APIs, replying with `updateDataModel`/`updateComponents` |
+| Host app                         | Catalog functions (device behaviour) and the `actionHandler` (transport to the agent)      |
+| `react-native-the-a2ui` renderer | Calls `props.action()` on press. No API knowledge                                          |
 
 ## Functions
 

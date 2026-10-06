@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>react-native-a2ui</title>
+    <title>react-native-the-a2ui</title>
     <style>
       :root {
         --bg: #f7f7f5;
@@ -282,7 +282,7 @@
     <!-- 1 -->
     <section class="slide">
       <div class="eyebrow">A2UI v0.9 on React Native</div>
-      <h1>react-native-a2ui</h1>
+      <h1>react-native-the-a2ui</h1>
       <p class="lead">
         What A2UI is, how actions work, what we found studying
         <code>@a2ui/web_core</code>, and how we'll build the renderer.
@@ -310,16 +310,16 @@
           <h3>Components</h3>
           <p class="muted">Like DOM elements</p>
           <p>
-            A <strong>flat list</strong> of typed components that point to
-            their children by ID. Rendering starts at <code>root</code>.
+            A <strong>flat list</strong> of typed components that point to their
+            children by ID. Rendering starts at <code>root</code>.
           </p>
         </div>
         <div class="card">
           <h3>Data model</h3>
           <p class="muted">Like a local state store</p>
           <p>
-            A JSON object per surface. Components read and write it through
-            JSON Pointer paths: <code>{"path": "/partySize"}</code>
+            A JSON object per surface. Components read and write it through JSON
+            Pointer paths: <code>{"path": "/partySize"}</code>
           </p>
         </div>
       </div>
@@ -355,8 +355,14 @@
           </ul>
           <h3 style="margin-top: 20px">Data model</h3>
           <ul>
-            <li><strong>Agent writes</strong> with <code>updateDataModel</code>; only bound components re-render</li>
-            <li><strong>User writes</strong> through inputs, locally, with no network call</li>
+            <li>
+              <strong>Agent writes</strong> with <code>updateDataModel</code>;
+              only bound components re-render
+            </li>
+            <li>
+              <strong>User writes</strong> through inputs, locally, with no
+              network call
+            </li>
           </ul>
         </div>
       </div>
@@ -367,9 +373,13 @@
       <div class="eyebrow">Concepts</div>
       <h2>Catalog negotiation</h2>
       <div class="flow" style="margin-bottom: 24px">
-        <div class="step">Client advertises <code>supportedCatalogIds</code> on every message</div>
+        <div class="step">
+          Client advertises <code>supportedCatalogIds</code> on every message
+        </div>
         <div class="arrow">→</div>
-        <div class="step">Agent picks the best match in <code>createSurface.catalogId</code></div>
+        <div class="step">
+          Agent picks the best match in <code>createSurface.catalogId</code>
+        </div>
         <div class="arrow">→</div>
         <div class="step">Locked for that surface's lifetime</div>
       </div>
@@ -377,9 +387,18 @@
         <div class="card">
           <h3>Why a list?</h3>
           <ul>
-            <li><strong>Several agents</strong>: each picks the first ID it understands</li>
-            <li><strong>Migrations</strong>: list <code>v2</code> and <code>v1</code> so app and agent ship independently</li>
-            <li><strong>Per-surface choice</strong>: custom catalog for one surface, basic for another</li>
+            <li>
+              <strong>Several agents</strong>: each picks the first ID it
+              understands
+            </li>
+            <li>
+              <strong>Migrations</strong>: list <code>v2</code> and
+              <code>v1</code> so app and agent ship independently
+            </li>
+            <li>
+              <strong>Per-surface choice</strong>: custom catalog for one
+              surface, basic for another
+            </li>
           </ul>
         </div>
         <div class="card">
@@ -399,19 +418,43 @@
       <h2>Two action models</h2>
       <div class="table-wrap">
         <table>
-          <tr><th></th><th><code>functionCall</code></th><th><code>event</code></th></tr>
-          <tr><td>Intent</td><td>Immediate, <strong>no network round trip</strong></td><td>Data for the <strong>agent</strong> to process</td></tr>
-          <tr><td>Agent informed</td><td>No</td><td>Yes</td></tr>
-          <tr><td>Defined by</td><td>The catalog (zod schema, checked on device)</td><td>The agent (free string, not checked)</td></tr>
-          <tr><td>Delivered to</td><td>The catalog function</td><td>The host's <code>actionHandler</code></td></tr>
-          <tr><td>Typical use</td><td>Open URL, switch tab, validation</td><td>Submit, bid, save</td></tr>
+          <tr>
+            <th></th>
+            <th><code>functionCall</code></th>
+            <th><code>event</code></th>
+          </tr>
+          <tr>
+            <td>Intent</td>
+            <td>Immediate, <strong>no network round trip</strong></td>
+            <td>Data for the <strong>agent</strong> to process</td>
+          </tr>
+          <tr>
+            <td>Agent informed</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Defined by</td>
+            <td>The catalog (zod schema, checked on device)</td>
+            <td>The agent (free string, not checked)</td>
+          </tr>
+          <tr>
+            <td>Delivered to</td>
+            <td>The catalog function</td>
+            <td>The host's <code>actionHandler</code></td>
+          </tr>
+          <tr>
+            <td>Typical use</td>
+            <td>Open URL, switch tab, validation</td>
+            <td>Submit, bid, save</td>
+          </tr>
         </table>
       </div>
       <div class="callout">
         <strong>Convention:</strong> <code>functionCall</code> for anything
-        without a network round trip, <code>event</code> for anything the
-        agent should handle. Both end in host code, so these are defaults,
-        not hard limits.
+        without a network round trip, <code>event</code> for anything the agent
+        should handle. Both end in host code, so these are defaults, not hard
+        limits.
       </div>
     </section>
 
@@ -427,9 +470,21 @@ user taps "Book"   Button.action fires
                   → host actionHandler → agent
 agent replies      updateDataModel / updateComponents / deleteSurface</code></pre>
       <div class="grid" style="margin-top: 20px">
-        <div class="card"><h3>Originates from a component</h3><p><code>sourceComponentId</code></p></div>
-        <div class="card"><h3>Reads the data model</h3><p>Its <code>context</code>, or the whole model with <code>sendDataModel: true</code></p></div>
-        <div class="card"><h3>Scoped to a surface</h3><p>The agent's reply targets the same <code>surfaceId</code></p></div>
+        <div class="card">
+          <h3>Originates from a component</h3>
+          <p><code>sourceComponentId</code></p>
+        </div>
+        <div class="card">
+          <h3>Reads the data model</h3>
+          <p>
+            Its <code>context</code>, or the whole model with
+            <code>sendDataModel: true</code>
+          </p>
+        </div>
+        <div class="card">
+          <h3>Scoped to a surface</h3>
+          <p>The agent's reply targets the same <code>surfaceId</code></p>
+        </div>
       </div>
     </section>
 
@@ -440,22 +495,42 @@ agent replies      updateDataModel / updateComponents / deleteSurface</code></pr
       <div class="grid">
         <div class="card">
           <h3>Agent (server)</h3>
-          <p>Handles events, calls business APIs, replies with updates. Must implement surfaces: lifecycle, state per <code>surfaceId</code>, and a client → agent path.</p>
+          <p>
+            Handles events, calls business APIs, replies with updates. Must
+            implement surfaces: lifecycle, state per <code>surfaceId</code>, and
+            a client → agent path.
+          </p>
         </div>
         <div class="card">
           <h3>Host app</h3>
-          <p>Catalog functions (device behaviour) and the <code>actionHandler</code> (transport to the agent). Attaches capabilities and data model to outgoing metadata.</p>
+          <p>
+            Catalog functions (device behaviour) and the
+            <code>actionHandler</code> (transport to the agent). Attaches
+            capabilities and data model to outgoing metadata.
+          </p>
         </div>
         <div class="card">
-          <h3>react-native-a2ui</h3>
-          <p>Calls <code>props.action()</code> on press. <strong>No API knowledge.</strong></p>
+          <h3>react-native-the-a2ui</h3>
+          <p>
+            Calls <code>props.action()</code> on press.
+            <strong>No API knowledge.</strong>
+          </p>
         </div>
       </div>
       <h3 style="margin-top: 28px">Gotchas</h3>
       <ul>
-        <li><code>openUrl</code> does nothing on RN (<code>window.open</code>); the renderer swaps in <code>Linking.openURL</code></li>
-        <li>Async function errors aren't caught by web_core; functions must catch their own</li>
-        <li>Event names aren't validated; without an <code>actionHandler</code>, events are dropped silently</li>
+        <li>
+          <code>openUrl</code> does nothing on RN (<code>window.open</code>);
+          the renderer swaps in <code>Linking.openURL</code>
+        </li>
+        <li>
+          Async function errors aren't caught by web_core; functions must catch
+          their own
+        </li>
+        <li>
+          Event names aren't validated; without an <code>actionHandler</code>,
+          events are dropped silently
+        </li>
       </ul>
     </section>
 
@@ -466,15 +541,27 @@ agent replies      updateDataModel / updateComponents / deleteSurface</code></pr
       <div class="grid">
         <div class="card">
           <h3 class="ok">Core is plain TypeScript</h3>
-          <p>Data model, bindings, expressions, node resolver, message processing and validation never touch the DOM. Dependencies: <code>zod</code>, <code>zod-to-json-schema</code>, <code>@preact/signals-core</code>.</p>
+          <p>
+            Data model, bindings, expressions, node resolver, message processing
+            and validation never touch the DOM. Dependencies: <code>zod</code>,
+            <code>zod-to-json-schema</code>, <code>@preact/signals-core</code>.
+          </p>
         </div>
         <div class="card">
           <h3 class="bad">One packaging blocker</h3>
-          <p>The <code>v0_9</code> and basic catalog entry points also load the <strong>Lit</strong> web components, which extend <code>HTMLElement</code> at load time. Metro doesn't tree-shake, and <code>exports</code> blocks deep imports.</p>
+          <p>
+            The <code>v0_9</code> and basic catalog entry points also load the
+            <strong>Lit</strong> web components, which extend
+            <code>HTMLElement</code> at load time. Metro doesn't tree-shake, and
+            <code>exports</code> blocks deep imports.
+          </p>
         </div>
         <div class="card">
           <h3>React renderer</h3>
-          <p>The surface layer (~720 lines) carries over almost unchanged. The 18 basic catalog components (~1,300 lines) need a native rewrite.</p>
+          <p>
+            The surface layer (~720 lines) carries over almost unchanged. The 18
+            basic catalog components (~1,300 lines) need a native rewrite.
+          </p>
         </div>
       </div>
     </section>
@@ -485,18 +572,44 @@ agent replies      updateDataModel / updateComponents / deleteSurface</code></pr
       <h2>Runtime risks on Hermes</h2>
       <div class="table-wrap">
         <table>
-          <tr><th>Item</th><th>Risk</th></tr>
-          <tr><td class="warn"><code>\p{XID_Start}</code> regex</td><td>Fails at module load if unsupported; everything breaks. <strong>Check first.</strong></td></tr>
-          <tr><td class="warn"><code>Intl.PluralRules</code></td><td>Probably missing; plan on <code>@formatjs/intl-pluralrules</code></td></tr>
-          <tr><td class="warn"><code>Intl.NumberFormat</code> / <code>DateTimeFormat</code></td><td>Verify options on Android</td></tr>
-          <tr><td><code>window.open</code></td><td>Silent no-op; replace with <code>Linking.openURL</code></td></tr>
-          <tr><td><code>crypto.randomUUID</code></td><td>Already has a fallback</td></tr>
+          <tr>
+            <th>Item</th>
+            <th>Risk</th>
+          </tr>
+          <tr>
+            <td class="warn"><code>\p{XID_Start}</code> regex</td>
+            <td>
+              Fails at module load if unsupported; everything breaks.
+              <strong>Check first.</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="warn"><code>Intl.PluralRules</code></td>
+            <td>
+              Probably missing; plan on <code>@formatjs/intl-pluralrules</code>
+            </td>
+          </tr>
+          <tr>
+            <td class="warn">
+              <code>Intl.NumberFormat</code> / <code>DateTimeFormat</code>
+            </td>
+            <td>Verify options on Android</td>
+          </tr>
+          <tr>
+            <td><code>window.open</code></td>
+            <td>Silent no-op; replace with <code>Linking.openURL</code></td>
+          </tr>
+          <tr>
+            <td><code>crypto.randomUUID</code></td>
+            <td>Already has a fallback</td>
+          </tr>
         </table>
       </div>
       <div class="callout">
         <strong>Spike result:</strong> root entry loads 57 modules with no Lit;
         with a Metro alias the iOS bundle has 60 web_core modules and
-        <strong>0 Lit modules</strong>. The regex is still waiting on a device run.
+        <strong>0 Lit modules</strong>. The regex is still waiting on a device
+        run.
       </div>
     </section>
 
@@ -505,12 +618,45 @@ agent replies      updateDataModel / updateComponents / deleteSurface</code></pr
       <div class="eyebrow">Renderer plan</div>
       <h2>Key decisions</h2>
       <div class="grid">
-        <div class="card"><h3>Core logic</h3><p>Depend on <code>@a2ui/web_core</code>; don't port or copy it.</p></div>
-        <div class="card"><h3>Lit workaround</h3><p>A Metro helper <code>withA2ui</code> (plus a Jest helper) exposes three Lit-free virtual subpaths.</p></div>
-        <div class="card"><h3>Long-term fix</h3><p>Upstream PR adding those subpaths. Then the helpers are deleted, with no import changes.</p></div>
-        <div class="card"><h3>Scope</h3><p>Only what React Native core can build. No third-party UI, media or markdown libraries.</p></div>
-        <div class="card"><h3>Extension point</h3><p>The custom catalog only. A host component with the same name replaces ours.</p></div>
-        <div class="card"><h3>Peer deps</h3><p><code>react</code>, <code>react-native</code>, <code>@a2ui/web_core ~0.12.0</code>, <code>zod ^3.25</code>.</p></div>
+        <div class="card">
+          <h3>Core logic</h3>
+          <p>Depend on <code>@a2ui/web_core</code>; don't port or copy it.</p>
+        </div>
+        <div class="card">
+          <h3>Lit workaround</h3>
+          <p>
+            A Metro helper <code>withA2ui</code> (plus a Jest helper) exposes
+            three Lit-free virtual subpaths.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Long-term fix</h3>
+          <p>
+            Upstream PR adding those subpaths. Then the helpers are deleted,
+            with no import changes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Scope</h3>
+          <p>
+            Only what React Native core can build. No third-party UI, media or
+            markdown libraries.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Extension point</h3>
+          <p>
+            The custom catalog only. A host component with the same name
+            replaces ours.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Peer deps</h3>
+          <p>
+            <code>react</code>, <code>react-native</code>,
+            <code>@a2ui/web_core ~0.12.0</code>, <code>zod ^3.25</code>.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -520,16 +666,34 @@ agent replies      updateDataModel / updateComponents / deleteSurface</code></pr
       <h2>Component support</h2>
       <h3>Supported (13): built from RN core</h3>
       <div class="chips" style="margin-bottom: 20px">
-        <span class="chip">Text</span><span class="chip">Image</span><span class="chip">Row</span><span class="chip">Column</span><span class="chip">List</span><span class="chip">Card</span><span class="chip">Divider</span><span class="chip">Tabs</span><span class="chip">Modal</span><span class="chip">Button</span><span class="chip">TextField</span><span class="chip">CheckBox</span><span class="chip">ChoicePicker</span>
+        <span class="chip">Text</span><span class="chip">Image</span
+        ><span class="chip">Row</span><span class="chip">Column</span
+        ><span class="chip">List</span><span class="chip">Card</span
+        ><span class="chip">Divider</span><span class="chip">Tabs</span
+        ><span class="chip">Modal</span><span class="chip">Button</span
+        ><span class="chip">TextField</span><span class="chip">CheckBox</span
+        ><span class="chip">ChoicePicker</span>
       </div>
       <h3>Unsupported (5): host adds them with its own libraries</h3>
       <div class="chips" style="margin-bottom: 20px">
-        <span class="chip off">Icon</span><span class="chip off">Video</span><span class="chip off">AudioPlayer</span><span class="chip off">Slider</span><span class="chip off">DateTimeInput</span>
+        <span class="chip off">Icon</span><span class="chip off">Video</span
+        ><span class="chip off">AudioPlayer</span
+        ><span class="chip off">Slider</span
+        ><span class="chip off">DateTimeInput</span>
       </div>
       <ul>
-        <li>Text strips markdown markers and shows plain text (the spec's fallback)</li>
-        <li>CheckBox uses <code>Switch</code>; Tabs and ChoicePicker are custom-built from primitives</li>
-        <li>Unknown component → error to the agent, small placeholder, one-time dev warning</li>
+        <li>
+          Text strips markdown markers and shows plain text (the spec's
+          fallback)
+        </li>
+        <li>
+          CheckBox uses <code>Switch</code>; Tabs and ChoicePicker are
+          custom-built from primitives
+        </li>
+        <li>
+          Unknown component → error to the agent, small placeholder, one-time
+          dev warning
+        </li>
       </ul>
     </section>
 
@@ -543,7 +707,7 @@ import {
   createBasicCatalog,
   createComponentImplementation,
   IconApi,
-} from 'react-native-a2ui'
+} from 'react-native-the-a2ui'
 
 const Icon = createComponentImplementation(
   IconApi,
@@ -558,8 +722,14 @@ const catalog = createBasicCatalog({
         <div>
           <h3>Catalog ID</h3>
           <ul>
-            <li><strong>Keep the basic ID</strong> when adding unsupported components or replacing one with the same props</li>
-            <li><strong>Use your own ID</strong> when changing a component's schema or adding new types</li>
+            <li>
+              <strong>Keep the basic ID</strong> when adding unsupported
+              components or replacing one with the same props
+            </li>
+            <li>
+              <strong>Use your own ID</strong> when changing a component's
+              schema or adding new types
+            </li>
           </ul>
           <h3 style="margin-top: 20px">Setup</h3>
           <pre><code>// metro.config.js
@@ -575,13 +745,48 @@ module.exports = withA2ui(
       <div class="eyebrow">Renderer plan</div>
       <h2>Phases</h2>
       <ol class="phases">
-        <li><div><strong>Package skeleton</strong>: Metro/Jest helpers, surface layer port, example app</div></li>
-        <li><div><strong>Theme and styling</strong>: tokens, <code>primaryColor</code> variants, style slots</div></li>
-        <li><div><strong>Layout and display</strong>: Text, Image, Row, Column, List, Card, Divider, Tabs, Modal</div></li>
-        <li><div><strong>Input</strong>: Button, TextField, CheckBox, ChoicePicker, validation errors</div></li>
-        <li><div><strong>Unsupported components and docs</strong>: placeholder, dev warning, example with Expo libraries</div></li>
-        <li><div><strong>Functions and Intl</strong>: <code>openUrl</code> override, PluralRules polyfill, Android checks</div></li>
-        <li><div><strong>Upstream</strong>: PR the three subpaths into web_core, then delete the helpers (can start any time)</div></li>
+        <li>
+          <div>
+            <strong>Package skeleton</strong>: Metro/Jest helpers, surface layer
+            port, example app
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Theme and styling</strong>: tokens,
+            <code>primaryColor</code> variants, style slots
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Layout and display</strong>: Text, Image, Row, Column, List,
+            Card, Divider, Tabs, Modal
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Input</strong>: Button, TextField, CheckBox, ChoicePicker,
+            validation errors
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Unsupported components and docs</strong>: placeholder, dev
+            warning, example with Expo libraries
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Functions and Intl</strong>: <code>openUrl</code> override,
+            PluralRules polyfill, Android checks
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Upstream</strong>: PR the three subpaths into web_core, then
+            delete the helpers (can start any time)
+          </div>
+        </li>
       </ol>
     </section>
 
@@ -601,9 +806,17 @@ module.exports = withA2ui(
         <div class="card">
           <h3>Actions and agent</h3>
           <ul>
-            <li>Add a <code>functions</code> option to <code>createBasicCatalog</code></li>
-            <li>Wire an <code>actionHandler</code> into the spike's processor</li>
-            <li>Does the Copart agent support surfaces, capabilities and data model sync? Which transport?</li>
+            <li>
+              Add a <code>functions</code> option to
+              <code>createBasicCatalog</code>
+            </li>
+            <li>
+              Wire an <code>actionHandler</code> into the spike's processor
+            </li>
+            <li>
+              Does the Copart agent support surfaces, capabilities and data
+              model sync? Which transport?
+            </li>
           </ul>
         </div>
       </div>

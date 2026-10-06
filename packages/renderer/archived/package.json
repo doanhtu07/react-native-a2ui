@@ -1,0 +1,10 @@
+{
+  "codegenConfig": {
+    "name": "TheA2UIRendererSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.thea2uirenderer"
+    }
+  }
+}

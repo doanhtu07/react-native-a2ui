@@ -1,4 +1,4 @@
-# Renderer Plan: `react-native-a2ui`
+# Renderer Plan: `react-native-the-a2ui`
 
 A React Native renderer for A2UI v0.9, built on `@a2ui/web_core`. It ships the basic catalog components that React Native core can build, plus theming/styling. Everything else is added by the host through a custom catalog.
 
@@ -95,7 +95,7 @@ import {
   createBasicCatalog,
   createComponentImplementation,
   IconApi,
-} from 'react-native-a2ui'
+} from 'react-native-the-a2ui'
 
 const Icon = createComponentImplementation(IconApi, ({ props }) => (
   // A2UI icon names are camelCase; Material uses snake_case
@@ -124,10 +124,10 @@ const catalog = createBasicCatalog({ components: [Text, Icon] })
 
 ## Metro helper
 
-Shipped as `react-native-a2ui/metro`:
+Shipped as `react-native-the-a2ui/metro`:
 
 ```js
-// react-native-a2ui/metro.js
+// react-native-the-a2ui/metro.js
 const fs = require('fs')
 const path = require('path')
 
@@ -150,7 +150,7 @@ function resolveA2uiSubpaths(projectRoot) {
       // Fail when Metro starts, not with a vague bundle error
       if (!fs.existsSync(filePath)) {
         throw new Error(
-          `react-native-a2ui: ${file} not found in @a2ui/web_core. ` +
+          `react-native-the-a2ui: ${file} not found in @a2ui/web_core. ` +
             'This web_core version is not supported; check the peer dependency range.',
         )
       }
@@ -190,18 +190,18 @@ Consumer setup:
 ```js
 // metro.config.js
 const { getDefaultConfig } = require('expo/metro-config')
-const { withA2ui } = require('react-native-a2ui/metro')
+const { withA2ui } = require('react-native-the-a2ui/metro')
 
 module.exports = withA2ui(getDefaultConfig(__dirname))
 ```
 
 ### Jest helper
 
-Shipped as `react-native-a2ui/jest`. It uses the same path table:
+Shipped as `react-native-the-a2ui/jest`. It uses the same path table:
 
 ```js
 // jest.config.js
-const { a2uiModuleNameMapper } = require('react-native-a2ui/jest')
+const { a2uiModuleNameMapper } = require('react-native-the-a2ui/jest')
 
 module.exports = {
   preset: 'jest-expo',
@@ -222,7 +222,7 @@ module.exports = {
 ## Package layout
 
 ```
-packages/react-native-a2ui/
+packages/react-native-the-a2ui/
   metro.js                 # withA2ui
   jest.js                  # a2uiModuleNameMapper
   src/
@@ -255,7 +255,7 @@ import {
   basicCatalog,
   createBasicCatalog,
   createComponentImplementation,
-} from 'react-native-a2ui'
+} from 'react-native-the-a2ui'
 
 // 1. Basic catalog, rendered as-is
 const processor = new MessageProcessor([basicCatalog], onAction)
