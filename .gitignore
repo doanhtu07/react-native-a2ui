@@ -1,0 +1,13 @@
+# Dev notes
+.dev
+
+# Build artifacts
+node_modules
+dist
+
+# Local release artifacts (pnpm release:local)
+.release-assets/
+RELEASE_NOTES.md
+
+# Graphify
+graphify-out
