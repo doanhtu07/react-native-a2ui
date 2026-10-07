@@ -21,9 +21,12 @@
     "epc": "tsx scripts/expo-packages-check.ts"
   },
   "dependencies": {
+    "@a2ui/web_core": "^0.12.0",
     "@faker-js/faker": "^10.5.0",
     "@react-native-vector-icons/ant-design": "^13.1.4",
     "@react-native-vector-icons/material-design-icons": "^13.1.4",
+    "@the-a2ui/renderer": "workspace:*",
+    "@the-polyfills/random-uuid": "^2.0.0",
     "expo": "^57.0.25",
     "expo-constants": "~57.0.19",
     "expo-dev-client": "~57.0.19",

@@ -2,7 +2,16 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "@the-a2ui/renderer": ["./src/index"]
+      "@the-a2ui/renderer": ["./src/index"],
+      "@a2ui/web_core/v0_9/basic_catalog/api": [
+        "../../node_modules/@a2ui/web_core/src/v0_9/basic_catalog/components/basic_components"
+      ],
+      "@a2ui/web_core/v0_9/basic_catalog/functions": [
+        "../../node_modules/@a2ui/web_core/src/v0_9/basic_catalog/functions/basic_functions"
+      ],
+      "@a2ui/web_core/v0_9/basic_catalog/theme": [
+        "../../node_modules/@a2ui/web_core/src/v0_9/basic_catalog/theme"
+      ]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

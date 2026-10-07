@@ -1,12 +1,13 @@
-allowBuilds:
-  esbuild: true
-  unrs-resolver: true
-
 # https://docs.expo.dev/guides/monorepos/
 nodeLinker: hoisted
 
-packages:
-  - "apps/*"
-  - "packages/*"
-
 publishBranch: main
+
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  unrs-resolver: true

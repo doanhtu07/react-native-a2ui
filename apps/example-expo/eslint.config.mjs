@@ -27,7 +27,14 @@ function dedupePlugins(configs) {
 }
 
 export default [
-  globalIgnores(['eslint.config.js', 'prettier.config.js', 'app.json', 'dist']),
+  globalIgnores([
+    'eslint.config.js',
+    'prettier.config.js',
+    'babel.config.js',
+    'metro.config.js',
+    'app.json',
+    'dist',
+  ]),
 
   ...dedupePlugins([
     ...fixupConfigRules(expoConfig),

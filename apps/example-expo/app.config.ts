@@ -1,20 +1,20 @@
 import type { ExpoConfig } from 'expo/config'
 
 const config: ExpoConfig = {
-  name: 'the-sheet-v2',
-  slug: 'the-sheet-v2',
+  name: 'rn-a2ui',
+  slug: 'rn-a2ui',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
-  scheme: 'thesheetv2',
+  scheme: 'rna2ui',
   userInterfaceStyle: 'automatic',
   platforms: ['ios', 'android'],
   ios: {
-    bundleIdentifier: 'com.thesheetv2.exampleexpo',
+    bundleIdentifier: 'com.rna2ui',
     supportsTablet: true,
   },
   android: {
-    package: 'com.thesheetv2.exampleexpo',
+    package: 'com.rna2ui.exampleexpo',
     adaptiveIcon: {
       backgroundColor: '#E6F4FE',
       foregroundImage: './assets/images/android-icon-foreground.png',
