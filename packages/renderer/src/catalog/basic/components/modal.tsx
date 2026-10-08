@@ -15,6 +15,8 @@ import { tokens } from '../tokens'
 import { TextColorProvider } from '../providers/text-color'
 import { ModalTriggerProvider } from '../providers/modal-trigger'
 
+const CLOSE_BUTTON_SIZE = 24
+
 export const Modal = createComponentImplementation(
   ModalApi,
   ({ props, buildChild }) => {
@@ -51,7 +53,9 @@ export const Modal = createComponentImplementation(
                   accessibilityLabel="Close"
                   accessibilityRole="button"
                   onPress={close}
-                  style={styles.close}
+                  style={({ pressed }) => {
+                    return [styles.close, { opacity: pressed ? 0.6 : 1 }]
+                  }}
                 >
                   <Text style={styles.closeLabel}>×</Text>
                 </Pressable>
@@ -74,14 +78,25 @@ export const Modal = createComponentImplementation(
 
 export const modalStyles = StyleSheet.create({
   body: {
+    flexGrow: 0,
     flexShrink: 1,
   },
   close: {
-    padding: tokens.spacing.xs,
+    alignItems: 'center',
+    height: CLOSE_BUTTON_SIZE,
+    justifyContent: 'center',
+    opacity: 1,
+    padding: 0,
+    width: CLOSE_BUTTON_SIZE,
   },
   closeLabel: {
     color: tokens.color.onSurface,
     fontSize: tokens.fontSize.xl,
+    includeFontPadding: false,
+    lineHeight: CLOSE_BUTTON_SIZE,
+    padding: 0,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   closeRow: {
     alignItems: 'flex-end',

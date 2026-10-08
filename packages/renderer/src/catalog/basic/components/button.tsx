@@ -50,6 +50,7 @@ export const Button = createComponentImplementation(
           isPrimary && styles.primary,
           pressed && isPrimary && styles.primaryPressed,
           isBorderless && styles.borderless,
+          pressed && isBorderless && styles.borderlessPressed,
           isDisabled && styles.disabled,
         ]}
       >
@@ -71,6 +72,9 @@ export const buttonStyles = StyleSheet.create({
     paddingHorizontal: tokens.spacing.m,
     paddingVertical: tokens.spacing.m,
   },
+  borderlessPressed: {
+    opacity: 0.6,
+  },
   button: {
     alignItems: 'center',
     alignSelf: 'flex-start',
@@ -82,7 +86,6 @@ export const buttonStyles = StyleSheet.create({
     paddingHorizontal: tokens.spacing.l,
     paddingVertical: tokens.spacing.m,
   },
-  // `:hover` on the web; the pressed state on touch screens
   buttonPressed: {
     backgroundColor: tokens.color.secondaryHover,
   },

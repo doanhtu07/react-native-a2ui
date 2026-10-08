@@ -24,7 +24,7 @@ module.exports = withA2ui(getDefaultConfig(__dirname))
 | Image        | `Image`                   | `fit` → `resizeMode`; variants icon, avatar, small/medium/large feature, header                                                                     |
 | Row          | `View`                    | `justify`/`align` → flexbox; `weight` → `flex`                                                                                                      |
 | Column       | `View`                    | Same as Row                                                                                                                                         |
-| List         | `ScrollView`              | Vertical or horizontal; template children                                                                                                           |
+| List         | `FlatList`                | Virtualized vertical or horizontal list; template children                                                                                          |
 | Card         | `View`                    | Shadow on iOS, `elevation` on Android; exactly one child                                                                                            |
 | Divider      | `View`                    | Hairline, horizontal or vertical                                                                                                                    |
 | Tabs         | `Pressable` + `View`      | Local `selectedIndex`; renders only the active child                                                                                                |
@@ -36,20 +36,27 @@ module.exports = withA2ui(getDefaultConfig(__dirname))
 
 **NOTES**:
 
+- List is virtualized (`FlatList`): never place a scrolling `List` inside a plain `ScrollView` of the same orientation. Use a `FlatList`-backed screen instead, otherwise React Native logs a nesting warning and windowing breaks.
 - Tabs and ChoicePicker are custom-built from core primitives, not native widgets.
 
-### Unsupported (6)
+### Unsupported (5)
 
 React Native core has no implementation for these. Hosts add them to their catalog using whichever library they already use.
 
-| Component            | Why core can't do it        | Typical host choices                                              |
-| -------------------- | --------------------------- | ----------------------------------------------------------------- |
-| Icon                 | No icon font in core        | `@expo/vector-icons`, `react-native-vector-icons`                 |
-| Video                | No video player             | `expo-video`, `react-native-video`                                |
-| AudioPlayer          | No audio player             | `expo-audio`, `react-native-track-player`                         |
-| Slider               | Removed from core           | `@react-native-community/slider`                                  |
-| DateTimeInput        | Removed from core           | `@react-native-community/datetimepicker`                          |
-| Text (with markdown) | No markdown support in core | `react-native-markdown-display`, `react-native-enriched-markdown` |
+| Component     | Why core can't do it | Typical host choices                              |
+| ------------- | -------------------- | ------------------------------------------------- |
+| Icon          | No icon font in core | `@expo/vector-icons`, `react-native-vector-icons` |
+| Video         | No video player      | `expo-video`, `react-native-video`                |
+| AudioPlayer   | No audio player      | `expo-audio`, `react-native-track-player`         |
+| Slider        | Removed from core    | `@react-native-community/slider`                  |
+| DateTimeInput | Removed from core    | `@react-native-community/datetimepicker`          |
+
+### Unsupported special cases (2)
+
+| Component                          | Why core can't do it                                                                                       | Typical host choices                                              |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Text (with markdown)               | No markdown support in core                                                                                | `react-native-markdown-display`, `react-native-enriched-markdown` |
+| TextField (with keyboard avoiding) | No general keyboard avoiding solution. Different scenarios like bottom sheet could require custom handling | `react-native-keyboard-controller`                                |
 
 ### Override
 

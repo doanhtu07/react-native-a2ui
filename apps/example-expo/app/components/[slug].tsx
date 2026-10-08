@@ -1,8 +1,9 @@
 import { Stack, useLocalSearchParams, useTheme } from 'expo-router'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import { useCallback } from 'react'
+import { FlatList, StyleSheet, Text } from 'react-native'
 
 import { ExampleSurface } from '@/components/example-surface'
-import { findGallery } from '@/examples'
+import { findGallery, type Example } from '@/examples'
 
 /** One component's gallery: each of its examples on its own surface. */
 export default function ComponentScreen() {
@@ -14,6 +15,14 @@ export default function ComponentScreen() {
   const gallery = findGallery(slug)
 
   // MARK: Renderers
+
+  // FlatList-backed container: A2UI `List` renders on RN `FlatList`, and a
+  // virtualized list must never sit inside a plain ScrollView of the same
+  // orientation, so the page itself is virtualized too.
+  const renderExample = useCallback(
+    ({ item }: { item: Example }) => <ExampleSurface example={item} />,
+    [],
+  )
 
   if (!gallery) {
     return (
@@ -27,20 +36,20 @@ export default function ComponentScreen() {
     <>
       <Stack.Screen options={{ title: gallery.name }} />
 
-      <ScrollView
+      <FlatList
+        data={gallery.examples}
+        keyExtractor={(item) => item.title}
+        renderItem={renderExample}
+        ListHeaderComponent={
+          <Text style={[styles.summary, { color: colors.text }]}>
+            {gallery.summary}
+          </Text>
+        }
         style={styles.root}
         contentContainerStyle={styles.contentContainer}
         contentInsetAdjustmentBehavior="automatic"
         keyboardShouldPersistTaps="handled"
-      >
-        <Text style={[styles.summary, { color: colors.text }]}>
-          {gallery.summary}
-        </Text>
-
-        {gallery.examples.map((example) => (
-          <ExampleSurface key={example.title} example={example} />
-        ))}
-      </ScrollView>
+      />
     </>
   )
 }

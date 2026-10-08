@@ -1,42 +1,86 @@
 import { ListApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
-import { ScrollView, StyleSheet } from 'react-native'
+import { useCallback, type ReactElement } from 'react'
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  type ListRenderItemInfo,
+} from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
 import { tokens } from '../tokens'
-import { mapAlign } from '../utils'
-import { ChildList } from './child-list'
+import { getWeightStyle, mapAlign } from '../utils'
+
+type ListChildRef =
+  | string
+  | {
+      id: string
+      basePath: string
+    }
 
 export const List = createComponentImplementation(
   ListApi,
-  ({ props, buildChild, context }) => {
+  ({ props, buildChild }) => {
     // MARK: Variables + States
 
     const styles = useComponentStyles('List', listStyles)
 
     const isHorizontal = props.direction === 'horizontal'
 
+    const data: ListChildRef[] = Array.isArray(props.children)
+      ? props.children
+      : []
+
+    // MARK: Preparation
+
+    const renderItem = useCallback(
+      ({ item }: ListRenderItemInfo<ListChildRef>) => {
+        const node =
+          typeof item === 'string'
+            ? buildChild(item)
+            : buildChild(item.id, item.basePath)
+
+        return node as ReactElement | null
+      },
+      [buildChild],
+    )
+
+    const keyExtractor = useCallback((item: ListChildRef, index: number) => {
+      if (typeof item === 'string') return `${item}-${index}`
+
+      return `${item.id}-${item.basePath}-${index}`
+    }, [])
+
+    const Separator = useCallback(
+      () => (
+        <View
+          style={
+            isHorizontal ? styles.horizontalSeparator : styles.verticalSeparator
+          }
+        />
+      ),
+      [isHorizontal, styles],
+    )
+
     // MARK: Renderers
 
-    // `overflow: auto` in the list's direction: it scrolls once constrained
+    // `overflow: auto` in the list's direction: it scrolls once constrained.
+    // Virtualized with FlatList; the agent contract stays `List`.
     return (
-      <ScrollView
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ItemSeparatorComponent={Separator}
         contentContainerStyle={[
           styles.content,
-          {
-            alignItems: mapAlign(props.align),
-            flexDirection: isHorizontal ? 'row' : 'column',
-          },
+          { alignItems: mapAlign(props.align) },
         ]}
+        style={[getWeightStyle(props.weight), styles.list]}
         horizontal={isHorizontal}
         nestedScrollEnabled
-      >
-        <ChildList
-          childList={props.children}
-          buildChild={buildChild}
-          context={context}
-        />
-      </ScrollView>
+      />
     )
   },
 )
@@ -45,7 +89,15 @@ export const List = createComponentImplementation(
 
 export const listStyles = StyleSheet.create({
   content: {
-    gap: tokens.spacing.s,
     padding: 0,
+  },
+  horizontalSeparator: {
+    width: tokens.spacing.s,
+  },
+  list: {
+    flexShrink: 1,
+  },
+  verticalSeparator: {
+    height: tokens.spacing.s,
   },
 })

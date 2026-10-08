@@ -138,7 +138,7 @@ export const choicePickerStyles = StyleSheet.create({
   },
   chipLabel: {
     color: tokens.color.onSurface,
-    fontSize: tokens.fontSize.xs,
+    fontSize: tokens.fontSize.s,
   },
   chipLabelSelected: {
     color: tokens.color.onPrimary,
@@ -157,14 +157,13 @@ export const choicePickerStyles = StyleSheet.create({
     borderRadius: tokens.spacing.m,
     borderWidth: tokens.borderWidth,
     color: tokens.color.onInput,
-    paddingHorizontal: tokens.spacing.s,
-    paddingVertical: tokens.spacing.xs,
+    marginBottom: tokens.spacing.s,
+    padding: tokens.spacing.m,
   },
   host: {
     gap: tokens.spacing.s,
     width: '100%',
   },
-  // Radio buttons are round, checkboxes square, as the browser draws them
   indicator: {
     alignItems: 'center',
     borderColor: tokens.color.border,
@@ -174,9 +173,6 @@ export const choicePickerStyles = StyleSheet.create({
     justifyContent: 'center',
     width: 16,
   },
-  indicatorRadio: {
-    borderRadius: 8,
-  },
   indicatorChecked: {
     backgroundColor: tokens.color.primary,
     borderRadius: 1,
@@ -185,6 +181,9 @@ export const choicePickerStyles = StyleSheet.create({
   },
   indicatorCheckedRadio: {
     borderRadius: 4,
+  },
+  indicatorRadio: {
+    borderRadius: 8,
   },
   indicatorSelected: {
     borderColor: tokens.color.primary,
@@ -197,13 +196,13 @@ export const choicePickerStyles = StyleSheet.create({
   optionLabel: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: tokens.spacing.xs,
+    gap: tokens.spacing.m,
   },
   optionText: {
     color: tokens.color.onBackground,
     fontSize: tokens.fontSize.m,
   },
   options: {
-    gap: tokens.spacing.xs,
+    gap: tokens.spacing.s,
   },
 })

@@ -67,6 +67,6 @@ export const checkBoxStyles = StyleSheet.create({
   row: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: tokens.spacing.s,
+    gap: tokens.spacing.m,
   },
 })
