@@ -4,11 +4,13 @@ import { useColorScheme } from 'react-native'
 import {
   darkTokens,
   lightTokens,
-  mergeTokens,
-  type A2uiThemeMode,
-  type A2uiTokenOverrides,
   type A2uiTokens,
-} from '../..'
+} from '../../catalog/basic/styles/tokens/tokens'
+import type {
+  A2uiThemeMode,
+  A2uiTokenOverrides,
+} from '../../catalog/basic/styles/tokens/types'
+import { mergeTokens } from '../../catalog/basic/styles/tokens/utils'
 
 const A2uiTokensContext = createContext<A2uiTokens>(lightTokens)
 

@@ -15,7 +15,7 @@ import { useA2uiTokens } from '../../../../styles/tokens/tokens'
 import { TextColorProvider } from '../../providers/text-color'
 import { ModalTriggerProvider } from '../../providers/modal-trigger'
 import { CLOSE_BUTTON_SIZE } from './constants'
-import { lightTokens, type A2uiTokens } from '../../styles'
+import { lightTokens, type A2uiTokens } from '../../styles/tokens/tokens'
 
 export const Modal = createComponentImplementation(
   ModalApi,

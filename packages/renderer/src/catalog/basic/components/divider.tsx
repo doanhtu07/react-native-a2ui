@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
 import { useA2uiTokens } from '../../../styles/tokens/tokens'
-import { lightTokens, type A2uiTokens } from '../styles'
+import { lightTokens, type A2uiTokens } from '../styles/tokens/tokens'
 
 export const Divider = createComponentImplementation(
   DividerApi,

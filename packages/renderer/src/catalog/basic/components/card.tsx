@@ -5,7 +5,8 @@ import { StyleSheet, View } from 'react-native'
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
 import { useA2uiTokens } from '../../../styles/tokens/tokens'
-import { getWeightStyle, lightTokens, type A2uiTokens } from '../styles'
+import { getWeightStyle } from '../styles/utils'
+import { lightTokens, type A2uiTokens } from '../styles/tokens/tokens'
 import { TextColorProvider } from '../providers/text-color'
 
 export const Card = createComponentImplementation(

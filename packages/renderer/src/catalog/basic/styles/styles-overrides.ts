@@ -2,28 +2,35 @@ import type { StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native'
 import type {
   buttonStyles,
   createButtonTokenStyles,
-  cardStyles,
-  createCardTokenStyles,
+} from '../components/button'
+import type { cardStyles, createCardTokenStyles } from '../components/card'
+import type {
   checkBoxStyles,
   createCheckBoxTokenStyles,
+} from '../components/check-box'
+import type {
   choicePickerStyles,
   createChoicePickerTokenStyles,
-  columnStyles,
+} from '../components/choice-picker/choice-picker'
+import type { columnStyles } from '../components/column'
+import type {
   dividerStyles,
   createDividerTokenStyles,
-  imageStyles,
-  listStyles,
+} from '../components/divider'
+import type { imageStyles } from '../components/image/image'
+import type { listStyles } from '../components/list/list'
+import type {
   modalStyles,
   createModalTokenStyles,
-  rowStyles,
-  tabsStyles,
-  createTabsTokenStyles,
-  textStyles,
-  createTextTokenStyles,
+} from '../components/modal/modal'
+import type { rowStyles } from '../components/row'
+import type { tabsStyles, createTabsTokenStyles } from '../components/tabs'
+import type { textStyles, createTextTokenStyles } from '../components/text'
+import type {
   textFieldStyles,
   createTextFieldTokenStyles,
-} from '../components'
-import type { StyleOverrides } from '../../../styles'
+} from '../components/text-field'
+import type { StyleOverrides } from '../../../styles/types'
 
 /**
  * A component's full default keys: the static structure sheet combined with

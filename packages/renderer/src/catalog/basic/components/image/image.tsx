@@ -5,7 +5,7 @@ import { Image as RNImage, StyleSheet } from 'react-native'
 
 import { createComponentImplementation } from '../../../../adapter'
 import { useComponentStyles } from '../../../../styles/styles'
-import { getWeightStyle } from '../../styles'
+import { getWeightStyle } from '../../styles/utils'
 import { mapFit, resolveImageBox } from './utils'
 import { LARGE_FEATURE_MAX_HEIGHT, SMALL_FEATURE_MAX_WIDTH } from './constants'
 import type { ImageIntrinsicSize } from './types'

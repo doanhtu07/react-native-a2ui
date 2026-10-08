@@ -39,8 +39,11 @@ import {
   useResolvedA2uiTokens,
 } from './styles/tokens/tokens'
 import { LoadingPlaceholder } from './node-view/loading-placeholder'
-import type { A2uiStylesMap } from './styles'
-import type { A2uiThemeMode, A2uiTokenOverrides } from '.'
+import type { A2uiStylesMap } from './styles/types'
+import type {
+  A2uiThemeMode,
+  A2uiTokenOverrides,
+} from './catalog/basic/styles/tokens/types'
 
 const NO_STYLES: A2uiStylesMap = {}
 

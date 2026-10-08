@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals'
 import { MessageProcessor, NodeResolver, peekValue } from '@a2ui/web_core'
 
-import { basicCatalog } from '../catalog/basic'
+import { basicCatalog } from '../catalog/basic/basic-catalog'
 
 const CATALOG_ID =
   'https://a2ui.org/specification/v0_9/catalogs/basic/catalog.json'

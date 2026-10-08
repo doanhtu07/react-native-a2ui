@@ -4,8 +4,9 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 
 import type { Option } from './types'
 import { createComponentImplementation } from '../../../../adapter'
-import { useA2uiTokens, useComponentStyles } from '../../../../styles'
-import { lightTokens, type A2uiTokens } from '../../styles'
+import { useComponentStyles } from '../../../../styles/styles'
+import { useA2uiTokens } from '../../../../styles/tokens/tokens'
+import { lightTokens, type A2uiTokens } from '../../styles/tokens/tokens'
 
 export const ChoicePicker = createComponentImplementation(
   ChoicePickerApi,

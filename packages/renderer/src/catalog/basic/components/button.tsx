@@ -7,7 +7,7 @@ import { useComponentStyles } from '../../../styles/styles'
 import { useA2uiTokens } from '../../../styles/tokens/tokens'
 import { TextColorProvider } from '../providers/text-color'
 import { useModalTrigger } from '../providers/modal-trigger'
-import { lightTokens, type A2uiTokens } from '../styles'
+import { lightTokens, type A2uiTokens } from '../styles/tokens/tokens'
 
 export const Button = createComponentImplementation(
   ButtonApi,

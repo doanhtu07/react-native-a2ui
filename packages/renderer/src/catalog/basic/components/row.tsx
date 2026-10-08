@@ -4,7 +4,8 @@ import { StyleSheet, View } from 'react-native'
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
 import { ChildList } from './child-list/child-list'
-import { mapAlign, mapJustify, getWeightStyle, lightTokens } from '../styles'
+import { lightTokens } from '../styles/tokens/tokens'
+import { mapAlign, mapJustify, getWeightStyle } from '../styles/utils'
 
 export const Row = createComponentImplementation(
   RowApi,

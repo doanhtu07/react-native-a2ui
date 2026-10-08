@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals'
-import { darkTokens, lightTokens, mergeTokens } from '../catalog'
-import { mergeStyleLayers } from '../styles'
+import { darkTokens, lightTokens } from '../catalog/basic/styles/tokens/tokens'
+import { mergeTokens } from '../catalog/basic/styles/tokens/utils'
+import { mergeStyleLayers } from '../styles/utils'
 
 describe('mergeTokens', () => {
   it('returns the base when there are no overrides', () => {

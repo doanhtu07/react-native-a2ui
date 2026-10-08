@@ -10,7 +10,8 @@ import {
 import { createComponentImplementation } from '../../../../adapter'
 import { useComponentStyles } from '../../../../styles/styles'
 import type { ListChildRef } from './types'
-import { getWeightStyle, lightTokens, mapAlign } from '../../styles'
+import { getWeightStyle, mapAlign } from '../../styles/utils'
+import { lightTokens } from '../../styles/tokens/tokens'
 
 export const List = createComponentImplementation(
   ListApi,

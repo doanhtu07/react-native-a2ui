@@ -6,7 +6,8 @@ import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
 import { useA2uiTokens } from '../../../styles/tokens/tokens'
 import { useTextColor } from '../providers/text-color'
-import { getWeightStyle, lightTokens, type A2uiTokens } from '../styles'
+import { getWeightStyle } from '../styles/utils'
+import { lightTokens, type A2uiTokens } from '../styles/tokens/tokens'
 
 /**
  * Renders the text as is. Unlike `@a2ui/react`, body text isn't run through

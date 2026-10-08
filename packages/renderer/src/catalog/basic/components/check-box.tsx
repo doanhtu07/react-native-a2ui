@@ -5,7 +5,7 @@ import { StyleSheet, Switch, Text, View } from 'react-native'
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
 import { useA2uiTokens } from '../../../styles/tokens/tokens'
-import { lightTokens, type A2uiTokens } from '../styles'
+import { lightTokens, type A2uiTokens } from '../styles/tokens/tokens'
 
 /**
  * React Native core has no checkbox; the spec allows "a native checkbox or
