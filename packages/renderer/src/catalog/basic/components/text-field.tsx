@@ -1,17 +1,25 @@
 import { TextFieldApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
+import { useA2uiTokens } from '../../../styles/tokens/tokens'
+import { lightTokens, type A2uiTokens } from '../styles'
 
 export const TextField = createComponentImplementation(
   TextFieldApi,
   ({ props }) => {
     // MARK: Variables + States
 
-    const styles = useComponentStyles('TextField', textFieldStyles)
+    const tokens = useA2uiTokens()
+
+    const tokenStyles = useMemo(
+      () => createTextFieldTokenStyles(tokens),
+      [tokens],
+    )
+
+    const styles = useComponentStyles('TextField', textFieldStyles, tokenStyles)
 
     // `:focus` on the web
     const [isFocused, setIsFocused] = useState(false)
@@ -54,36 +62,49 @@ export const TextField = createComponentImplementation(
 
 export const textFieldStyles = StyleSheet.create({
   error: {
+    fontSize: lightTokens.fontSize.xs,
+  },
+  focused: {},
+  host: {
+    gap: lightTokens.spacing.xs,
+    width: '100%',
+  },
+  input: {
+    borderRadius: lightTokens.spacing.m,
+    borderWidth: lightTokens.borderWidth,
+    padding: lightTokens.spacing.m,
+    width: '100%',
+  },
+  invalid: {},
+  label: {
+    fontSize: lightTokens.fontSize.s,
+    fontWeight: 'bold',
+  },
+  // A `<textarea>`'s default two rows
+  longText: {
+    minHeight: lightTokens.fontSize.m * 2 * lightTokens.lineHeight.body,
+    textAlignVertical: 'top',
+  },
+})
+
+export const createTextFieldTokenStyles = (tokens: A2uiTokens) => ({
+  error: {
     color: tokens.color.error,
-    fontSize: tokens.fontSize.xs,
   },
   focused: {
     borderColor: tokens.color.primary,
   },
-  host: {
-    gap: tokens.spacing.xs,
-    width: '100%',
-  },
+  host: {},
   input: {
     backgroundColor: tokens.color.input,
     borderColor: tokens.color.border,
-    borderRadius: tokens.spacing.m,
-    borderWidth: tokens.borderWidth,
     color: tokens.color.onInput,
-    padding: tokens.spacing.m,
-    width: '100%',
   },
   invalid: {
     borderColor: tokens.color.error,
   },
   label: {
     color: tokens.color.onBackground,
-    fontSize: tokens.fontSize.s,
-    fontWeight: 'bold',
   },
-  // A `<textarea>`'s default two rows
-  longText: {
-    minHeight: tokens.fontSize.m * 2 * tokens.lineHeight.body,
-    textAlignVertical: 'top',
-  },
+  longText: {},
 })

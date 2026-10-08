@@ -10,6 +10,13 @@
  *
  * Unlike `@a2ui/react`, there is no markdown renderer: Text shows its string
  * as is, and hosts that want markdown replace Text through the catalog.
+ *
+ * Theming is two layers, mirroring `@copartit/react-native-ui`:
+ * - Quick color theme swap: `themeMode` (`auto` follows the OS scheme live)
+ *   plus partial `tokens` / `darkTokens` overrides, deep merged over the
+ *   defaults. Components read the resolved set via `useA2uiTokens()`.
+ * - Deeper per-component restyle: `styles` (`A2uiStyles`), merged after the
+ *   token-derived colors, so it always wins.
  */
 
 import {
@@ -25,19 +32,45 @@ import { useCallback, useMemo, useSyncExternalStore } from 'react'
 import { NodeView } from './node-view/node-view'
 import { NodeSurfaceProvider } from './node-view/node-surface-context'
 import type { ReactComponentImplementation } from './react_component_implementation'
-import type { A2uiStyles } from './catalog/basic/styles'
+import type { A2uiStyles } from './catalog/basic/styles/styles-overrides'
 import { A2uiStylesProvider } from './styles/styles'
-import type { A2uiStylesMap } from './styles/utils'
+import {
+  A2uiTokensProvider,
+  useResolvedA2uiTokens,
+} from './styles/tokens/tokens'
 import { LoadingPlaceholder } from './node-view/loading-placeholder'
+import type { A2uiStylesMap } from './styles'
+import type { A2uiThemeMode, A2uiTokenOverrides } from '.'
 
 const NO_STYLES: A2uiStylesMap = {}
 
 export const A2uiSurface: React.FC<{
   surface: SurfaceModel<ReactComponentImplementation>
 
-  /** Style overrides, keyed by component name, then by its style sheet key. */
+  /**
+   * Which token set to use. `auto` (default) follows the OS color scheme
+   * live via `useColorScheme`.
+   */
+  themeMode?: A2uiThemeMode
+
+  /** Partial overrides for the light token set (quick theme swap). */
+  lightTokens?: A2uiTokenOverrides
+
+  /** Partial overrides for the dark token set (quick theme swap). */
+  darkTokens?: A2uiTokenOverrides
+
+  /**
+   * Deeper style overrides, keyed by component name, then by its style
+   * sheet key. Applied after the token-derived colors, so they win.
+   */
   styles?: A2uiStyles
-}> = ({ surface, styles = NO_STYLES }) => {
+}> = ({
+  surface,
+  themeMode = 'auto',
+  lightTokens,
+  darkTokens,
+  styles = NO_STYLES,
+}) => {
   // MARK: Variables + States
 
   /*
@@ -87,6 +120,11 @@ export const A2uiSurface: React.FC<{
 
   const root = useSyncExternalStore(subscribe, getSnapshot)
 
+  const resolvedTokens = useResolvedA2uiTokens(themeMode, {
+    lightTokens,
+    darkTokens,
+  })
+
   // MARK: Renderers
 
   if (!root) {
@@ -95,9 +133,11 @@ export const A2uiSurface: React.FC<{
 
   return (
     <NodeSurfaceProvider value={surface}>
-      <A2uiStylesProvider value={styles}>
-        <NodeView surface={surface} node={root} />
-      </A2uiStylesProvider>
+      <A2uiTokensProvider value={resolvedTokens}>
+        <A2uiStylesProvider value={styles}>
+          <NodeView surface={surface} node={root} />
+        </A2uiStylesProvider>
+      </A2uiTokensProvider>
     </NodeSurfaceProvider>
   )
 }

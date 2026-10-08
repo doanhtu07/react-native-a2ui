@@ -3,7 +3,7 @@ import {
   LARGE_FEATURE_MAX_HEIGHT,
   resolveImageBox,
   SMALL_FEATURE_MAX_WIDTH,
-} from '../catalog/basic/components/image/utils'
+} from '../catalog'
 
 describe('resolveImageBox', () => {
   it('returns undefined when the intrinsic height is not measurable', () => {

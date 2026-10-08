@@ -1,9 +1,6 @@
-import type { ImageProps, ImageStyle } from 'react-native'
-
-export const SMALL_FEATURE_MAX_WIDTH = 100
-export const LARGE_FEATURE_MAX_HEIGHT = 400
-
-export type ImageIntrinsicSize = { width: number; height: number }
+import type { ImageStyle } from 'react-native'
+import type { ImageIntrinsicSize, ResizeMode } from './types'
+import { LARGE_FEATURE_MAX_HEIGHT, SMALL_FEATURE_MAX_WIDTH } from './constants'
 
 /**
  * Computes the layout box for a non-fixed-size image from its intrinsic size
@@ -62,8 +59,6 @@ export function resolveImageBox(
 
   return { width, height }
 }
-
-export type ResizeMode = NonNullable<ImageProps['resizeMode']>
 
 // CSS `object-fit` → `resizeMode`; `scaleDown` behaves as `contain` for
 // images larger than their box, which is the case `resizeMode` can express.

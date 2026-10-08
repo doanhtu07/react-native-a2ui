@@ -1,17 +1,20 @@
 import { TabsApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
+import { useA2uiTokens } from '../../../styles/tokens/tokens'
+import { lightTokens, type A2uiTokens } from '../styles'
 
 export const Tabs = createComponentImplementation(
   TabsApi,
   ({ props, buildChild }) => {
     // MARK: Variables + States
 
-    const styles = useComponentStyles('Tabs', tabsStyles)
+    const tokens = useA2uiTokens()
+    const tokenStyles = useMemo(() => createTabsTokenStyles(tokens), [tokens])
+    const styles = useComponentStyles('Tabs', tabsStyles, tokenStyles)
 
     const [selectedIndex, setSelectedIndex] = useState(0)
 
@@ -59,15 +62,29 @@ export const Tabs = createComponentImplementation(
 
 export const tabsStyles = StyleSheet.create({
   content: {
-    paddingHorizontal: tokens.spacing.m,
+    paddingHorizontal: lightTokens.spacing.m,
   },
   tabsHeader: {
     backgroundColor: 'transparent',
-    borderTopLeftRadius: tokens.borderRadius,
-    borderTopRightRadius: tokens.borderRadius,
-    paddingHorizontal: tokens.spacing.l,
-    paddingVertical: tokens.spacing.m,
+    borderTopLeftRadius: lightTokens.borderRadius,
+    borderTopRightRadius: lightTokens.borderRadius,
+    paddingHorizontal: lightTokens.spacing.l,
+    paddingVertical: lightTokens.spacing.m,
   },
+  tabsHeaderActive: {},
+  tabsHeaderLabel: {},
+  tabsHeaderLabelActive: {},
+  tabsHeaders: {
+    borderBottomWidth: lightTokens.borderWidth,
+    flexDirection: 'row',
+    gap: lightTokens.spacing.xs,
+    marginBottom: lightTokens.spacing.m,
+  },
+})
+
+export const createTabsTokenStyles = (tokens: A2uiTokens) => ({
+  content: {},
+  tabsHeader: {},
   tabsHeaderActive: {
     backgroundColor: tokens.color.secondary,
   },
@@ -79,9 +96,5 @@ export const tabsStyles = StyleSheet.create({
   },
   tabsHeaders: {
     borderBottomColor: tokens.color.border,
-    borderBottomWidth: tokens.borderWidth,
-    flexDirection: 'row',
-    gap: tokens.spacing.xs,
-    marginBottom: tokens.spacing.m,
   },
 })

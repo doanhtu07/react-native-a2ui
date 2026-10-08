@@ -3,9 +3,8 @@ import { StyleSheet, View } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
-import { getWeightStyle, mapAlign, mapJustify } from '../utils'
-import { ChildList } from './child-list'
+import { ChildList } from './child-list/child-list'
+import { lightTokens, mapAlign, mapJustify, getWeightStyle } from '../styles'
 
 export const Column = createComponentImplementation(
   ColumnApi,
@@ -42,6 +41,6 @@ export const Column = createComponentImplementation(
 export const columnStyles = StyleSheet.create({
   column: {
     flexDirection: 'column',
-    gap: tokens.spacing.m,
+    gap: lightTokens.spacing.m,
   },
 })

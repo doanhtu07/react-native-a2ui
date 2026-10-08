@@ -1,5 +1,5 @@
 import { ModalApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   Pressable,
   Modal as RNModal,
@@ -9,20 +9,23 @@ import {
   View,
 } from 'react-native'
 
-import { createComponentImplementation } from '../../../adapter'
-import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
-import { TextColorProvider } from '../providers/text-color'
-import { ModalTriggerProvider } from '../providers/modal-trigger'
-
-const CLOSE_BUTTON_SIZE = 24
+import { createComponentImplementation } from '../../../../adapter'
+import { useComponentStyles } from '../../../../styles/styles'
+import { useA2uiTokens } from '../../../../styles/tokens/tokens'
+import { TextColorProvider } from '../../providers/text-color'
+import { ModalTriggerProvider } from '../../providers/modal-trigger'
+import { CLOSE_BUTTON_SIZE } from './constants'
+import { lightTokens, type A2uiTokens } from '../../styles'
 
 export const Modal = createComponentImplementation(
   ModalApi,
   ({ props, buildChild }) => {
     // MARK: Variables + States
 
-    const styles = useComponentStyles('Modal', modalStyles)
+    const tokens = useA2uiTokens()
+
+    const tokenStyles = useMemo(() => createModalTokenStyles(tokens), [tokens])
+    const styles = useComponentStyles('Modal', modalStyles, tokenStyles)
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -90,8 +93,7 @@ export const modalStyles = StyleSheet.create({
     width: CLOSE_BUTTON_SIZE,
   },
   closeLabel: {
-    color: tokens.color.onSurface,
-    fontSize: tokens.fontSize.xl,
+    fontSize: lightTokens.fontSize.xl,
     includeFontPadding: false,
     lineHeight: CLOSE_BUTTON_SIZE,
     padding: 0,
@@ -102,19 +104,33 @@ export const modalStyles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   dialog: {
-    backgroundColor: tokens.color.surface,
-    borderRadius: tokens.borderRadius,
+    borderRadius: lightTokens.borderRadius,
     maxHeight: '90%',
     maxWidth: '90%',
-    padding: tokens.spacing.l,
+    padding: lightTokens.spacing.l,
   },
   overlay: {
     alignItems: 'center',
-    backgroundColor: tokens.color.overlay,
     flex: 1,
     justifyContent: 'center',
   },
   trigger: {
     alignSelf: 'flex-start',
   },
+})
+
+export const createModalTokenStyles = (tokens: A2uiTokens) => ({
+  body: {},
+  close: {},
+  closeLabel: {
+    color: tokens.color.onSurface,
+  },
+  closeRow: {},
+  dialog: {
+    backgroundColor: tokens.color.surface,
+  },
+  overlay: {
+    backgroundColor: tokens.color.overlay,
+  },
+  trigger: {},
 })

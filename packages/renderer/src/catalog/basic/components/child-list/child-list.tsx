@@ -1,16 +1,7 @@
 import type { ComponentContext } from '@a2ui/web_core'
-// Type-only: the `v0_9` entry loads Lit at runtime, but types are erased
 import type { ComponentId } from '@a2ui/web_core/v0_9'
 import React from 'react'
-
-type ResolvedChildRef =
-  | ComponentId
-  | {
-      id: ComponentId
-      basePath: string
-    }
-
-type ResolvedChildList = ResolvedChildRef[]
+import type { ResolvedChildList } from './types'
 
 export const ChildList: React.FC<{
   childList: ResolvedChildList

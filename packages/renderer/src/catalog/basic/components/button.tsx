@@ -1,18 +1,22 @@
 import { ButtonApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
+import { useMemo } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
+import { useA2uiTokens } from '../../../styles/tokens/tokens'
 import { TextColorProvider } from '../providers/text-color'
 import { useModalTrigger } from '../providers/modal-trigger'
+import { lightTokens, type A2uiTokens } from '../styles'
 
 export const Button = createComponentImplementation(
   ButtonApi,
   ({ props, buildChild }) => {
     // MARK: Variables + States
 
-    const styles = useComponentStyles('Button', buttonStyles)
+    const tokens = useA2uiTokens()
+    const tokenStyles = useMemo(() => createButtonTokenStyles(tokens), [tokens])
+    const styles = useComponentStyles('Button', buttonStyles, tokenStyles)
 
     const openModal = useModalTrigger()
 
@@ -68,9 +72,9 @@ export const buttonStyles = StyleSheet.create({
   borderless: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
-    borderWidth: tokens.borderWidth,
-    paddingHorizontal: tokens.spacing.m,
-    paddingVertical: tokens.spacing.m,
+    borderWidth: lightTokens.borderWidth,
+    paddingHorizontal: lightTokens.spacing.m,
+    paddingVertical: lightTokens.spacing.m,
   },
   borderlessPressed: {
     opacity: 0.6,
@@ -78,24 +82,41 @@ export const buttonStyles = StyleSheet.create({
   button: {
     alignItems: 'center',
     alignSelf: 'flex-start',
-    backgroundColor: tokens.color.surface,
-    borderColor: tokens.color.border,
-    borderRadius: tokens.borderRadius,
-    borderWidth: tokens.borderWidth,
+    borderRadius: lightTokens.borderRadius,
+    borderWidth: lightTokens.borderWidth,
     justifyContent: 'center',
-    paddingHorizontal: tokens.spacing.l,
-    paddingVertical: tokens.spacing.m,
+    paddingHorizontal: lightTokens.spacing.l,
+    paddingVertical: lightTokens.spacing.m,
   },
-  buttonPressed: {
-    backgroundColor: tokens.color.secondaryHover,
-  },
+  buttonPressed: {},
   disabled: {
     opacity: 0.6,
   },
   primary: {
+    borderWidth: lightTokens.borderWidth,
+  },
+  primaryPressed: {},
+})
+
+/**
+ * Theme colors, resolved at render from `useA2uiTokens()`. Plain objects —
+ * never `StyleSheet.create` — merged between the static sheet and the
+ * host's `styles` overrides, so deeper restyles win.
+ */
+export const createButtonTokenStyles = (tokens: A2uiTokens) => ({
+  borderless: {},
+  borderlessPressed: {},
+  button: {
+    backgroundColor: tokens.color.surface,
+    borderColor: tokens.color.border,
+  },
+  buttonPressed: {
+    backgroundColor: tokens.color.secondaryHover,
+  },
+  disabled: {},
+  primary: {
     backgroundColor: tokens.color.primary,
     borderColor: tokens.color.primary,
-    borderWidth: tokens.borderWidth,
   },
   primaryPressed: {
     backgroundColor: tokens.color.primaryHover,

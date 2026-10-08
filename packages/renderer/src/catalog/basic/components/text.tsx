@@ -1,11 +1,12 @@
 import { TextApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
+import { useMemo } from 'react'
 import { Text as RNText, StyleSheet } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
-import { getWeightStyle } from '../utils'
+import { useA2uiTokens } from '../../../styles/tokens/tokens'
 import { useTextColor } from '../providers/text-color'
+import { getWeightStyle, lightTokens, type A2uiTokens } from '../styles'
 
 /**
  * Renders the text as is. Unlike `@a2ui/react`, body text isn't run through
@@ -15,7 +16,9 @@ import { useTextColor } from '../providers/text-color'
 export const Text = createComponentImplementation(TextApi, ({ props }) => {
   // MARK: Variables + States
 
-  const styles = useComponentStyles('Text', textStyles)
+  const tokens = useA2uiTokens()
+  const tokenStyles = useMemo(() => createTextTokenStyles(tokens), [tokens])
+  const styles = useComponentStyles('Text', textStyles, tokenStyles)
 
   const textColor = useTextColor()
 
@@ -49,37 +52,48 @@ export const Text = createComponentImplementation(TextApi, ({ props }) => {
 
 export const textStyles = StyleSheet.create({
   a2uiCaption: {
-    color: tokens.color.textCaption,
     fontStyle: 'italic',
     textAlign: 'left',
   },
   body: {
-    fontSize: tokens.fontSize.m,
-    lineHeight: tokens.fontSize.m * tokens.lineHeight.body,
+    fontSize: lightTokens.fontSize.m,
+    lineHeight: lightTokens.fontSize.m * lightTokens.lineHeight.body,
   },
   h1: {
-    fontSize: tokens.fontSize['2xl'],
+    fontSize: lightTokens.fontSize['2xl'],
     fontWeight: 'bold',
-    lineHeight: tokens.fontSize['2xl'] * tokens.lineHeight.headings,
+    lineHeight: lightTokens.fontSize['2xl'] * lightTokens.lineHeight.headings,
   },
   h2: {
-    fontSize: tokens.fontSize.xl,
+    fontSize: lightTokens.fontSize.xl,
     fontWeight: 'bold',
-    lineHeight: tokens.fontSize.xl * tokens.lineHeight.headings,
+    lineHeight: lightTokens.fontSize.xl * lightTokens.lineHeight.headings,
   },
   h3: {
-    fontSize: tokens.fontSize.l,
+    fontSize: lightTokens.fontSize.l,
     fontWeight: 'bold',
-    lineHeight: tokens.fontSize.l * tokens.lineHeight.headings,
+    lineHeight: lightTokens.fontSize.l * lightTokens.lineHeight.headings,
   },
   h4: {
-    fontSize: tokens.fontSize.m,
+    fontSize: lightTokens.fontSize.m,
     fontWeight: 'bold',
-    lineHeight: tokens.fontSize.m * tokens.lineHeight.headings,
+    lineHeight: lightTokens.fontSize.m * lightTokens.lineHeight.headings,
   },
   h5: {
-    fontSize: tokens.fontSize.s,
+    fontSize: lightTokens.fontSize.s,
     fontWeight: 'bold',
-    lineHeight: tokens.fontSize.s * tokens.lineHeight.headings,
+    lineHeight: lightTokens.fontSize.s * lightTokens.lineHeight.headings,
   },
+})
+
+export const createTextTokenStyles = (tokens: A2uiTokens) => ({
+  a2uiCaption: {
+    color: tokens.color.textCaption,
+  },
+  body: {},
+  h1: {},
+  h2: {},
+  h3: {},
+  h4: {},
+  h5: {},
 })

@@ -5,14 +5,10 @@ import { Image as RNImage, StyleSheet } from 'react-native'
 
 import { createComponentImplementation } from '../../../../adapter'
 import { useComponentStyles } from '../../../../styles/styles'
-import { getWeightStyle } from '../../utils'
-import {
-  type ImageIntrinsicSize,
-  LARGE_FEATURE_MAX_HEIGHT,
-  mapFit,
-  resolveImageBox,
-  SMALL_FEATURE_MAX_WIDTH,
-} from './utils'
+import { getWeightStyle } from '../../styles'
+import { mapFit, resolveImageBox } from './utils'
+import { LARGE_FEATURE_MAX_HEIGHT, SMALL_FEATURE_MAX_WIDTH } from './constants'
+import type { ImageIntrinsicSize } from './types'
 
 export const Image = createComponentImplementation(ImageApi, ({ props }) => {
   // MARK: Variables + States

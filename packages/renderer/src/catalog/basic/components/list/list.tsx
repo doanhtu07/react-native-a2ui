@@ -7,17 +7,10 @@ import {
   type ListRenderItemInfo,
 } from 'react-native'
 
-import { createComponentImplementation } from '../../../adapter'
-import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
-import { getWeightStyle, mapAlign } from '../utils'
-
-type ListChildRef =
-  | string
-  | {
-      id: string
-      basePath: string
-    }
+import { createComponentImplementation } from '../../../../adapter'
+import { useComponentStyles } from '../../../../styles/styles'
+import type { ListChildRef } from './types'
+import { getWeightStyle, lightTokens, mapAlign } from '../../styles'
 
 export const List = createComponentImplementation(
   ListApi,
@@ -92,12 +85,12 @@ export const listStyles = StyleSheet.create({
     padding: 0,
   },
   horizontalSeparator: {
-    width: tokens.spacing.s,
+    width: lightTokens.spacing.s,
   },
   list: {
     flexShrink: 1,
   },
   verticalSeparator: {
-    height: tokens.spacing.s,
+    height: lightTokens.spacing.s,
   },
 })

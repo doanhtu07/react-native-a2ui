@@ -1,9 +1,11 @@
 import { CheckBoxApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
+import { useMemo } from 'react'
 import { StyleSheet, Switch, Text, View } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
+import { useA2uiTokens } from '../../../styles/tokens/tokens'
+import { lightTokens, type A2uiTokens } from '../styles'
 
 /**
  * React Native core has no checkbox; the spec allows "a native checkbox or
@@ -14,7 +16,14 @@ export const CheckBox = createComponentImplementation(
   ({ props }) => {
     // MARK: Variables + States
 
-    const styles = useComponentStyles('CheckBox', checkBoxStyles)
+    const tokens = useA2uiTokens()
+
+    const tokenStyles = useMemo(
+      () => createCheckBoxTokenStyles(tokens),
+      [tokens],
+    )
+
+    const styles = useComponentStyles('CheckBox', checkBoxStyles, tokenStyles)
 
     const hasError = props.validationErrors && props.validationErrors.length > 0
 
@@ -49,24 +58,34 @@ export const CheckBox = createComponentImplementation(
 
 export const checkBoxStyles = StyleSheet.create({
   container: {
-    margin: tokens.spacing.m,
+    margin: lightTokens.spacing.m,
   },
   error: {
-    color: tokens.color.error,
-    fontSize: tokens.fontSize.xs,
+    fontSize: lightTokens.fontSize.xs,
     marginTop: 4,
   },
   label: {
-    color: tokens.color.onSurface,
-    fontSize: tokens.fontSize.s,
+    fontSize: lightTokens.fontSize.s,
     fontWeight: 'bold',
+  },
+  labelError: {},
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: lightTokens.spacing.m,
+  },
+})
+
+export const createCheckBoxTokenStyles = (tokens: A2uiTokens) => ({
+  container: {},
+  error: {
+    color: tokens.color.error,
+  },
+  label: {
+    color: tokens.color.onSurface,
   },
   labelError: {
     color: tokens.color.error,
   },
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: tokens.spacing.m,
-  },
+  row: {},
 })

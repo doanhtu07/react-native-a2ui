@@ -1,27 +1,34 @@
 import { ChoicePickerApi } from '@a2ui/web_core/v0_9/basic_catalog/api'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 
-import { createComponentImplementation } from '../../../adapter'
-import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
-
-// MARK: Variables + States
-
-type _Option = { label: string; value: string }
+import type { Option } from './types'
+import { createComponentImplementation } from '../../../../adapter'
+import { useA2uiTokens, useComponentStyles } from '../../../../styles'
+import { lightTokens, type A2uiTokens } from '../../styles'
 
 export const ChoicePicker = createComponentImplementation(
   ChoicePickerApi,
   ({ props }) => {
     // MARK: Variables + States
 
-    const styles = useComponentStyles('ChoicePicker', choicePickerStyles)
+    const tokens = useA2uiTokens()
+
+    const tokenStyles = useMemo(
+      () => createChoicePickerTokenStyles(tokens),
+      [tokens],
+    )
+    const styles = useComponentStyles(
+      'ChoicePicker',
+      choicePickerStyles,
+      tokenStyles,
+    )
 
     const [filter, setFilter] = useState('')
 
     const values: string[] = Array.isArray(props.value) ? props.value : []
 
-    const options = ((props.options || []) as _Option[]).filter(
+    const options = ((props.options || []) as Option[]).filter(
       (opt) =>
         !props.filterable ||
         filter === '' ||
@@ -129,44 +136,32 @@ export const ChoicePicker = createComponentImplementation(
 
 export const choicePickerStyles = StyleSheet.create({
   chip: {
-    backgroundColor: tokens.color.surface,
-    borderColor: tokens.color.border,
     borderRadius: 999,
     borderWidth: 1,
-    paddingHorizontal: tokens.spacing.m,
-    paddingVertical: tokens.spacing.s,
+    paddingHorizontal: lightTokens.spacing.m,
+    paddingVertical: lightTokens.spacing.s,
   },
   chipLabel: {
-    color: tokens.color.onSurface,
-    fontSize: tokens.fontSize.s,
+    fontSize: lightTokens.fontSize.s,
   },
-  chipLabelSelected: {
-    color: tokens.color.onPrimary,
-  },
-  chipSelected: {
-    backgroundColor: tokens.color.primary,
-    borderColor: tokens.color.primary,
-  },
+  chipLabelSelected: {},
+  chipSelected: {},
   chips: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   filterInput: {
-    backgroundColor: tokens.color.input,
-    borderColor: tokens.color.border,
-    borderRadius: tokens.spacing.m,
-    borderWidth: tokens.borderWidth,
-    color: tokens.color.onInput,
-    marginBottom: tokens.spacing.s,
-    padding: tokens.spacing.m,
+    borderRadius: lightTokens.spacing.m,
+    borderWidth: lightTokens.borderWidth,
+    marginBottom: lightTokens.spacing.s,
+    padding: lightTokens.spacing.m,
   },
   host: {
-    gap: tokens.spacing.s,
+    gap: lightTokens.spacing.s,
     width: '100%',
   },
   indicator: {
     alignItems: 'center',
-    borderColor: tokens.color.border,
     borderRadius: 2,
     borderWidth: 1,
     height: 16,
@@ -174,7 +169,6 @@ export const choicePickerStyles = StyleSheet.create({
     width: 16,
   },
   indicatorChecked: {
-    backgroundColor: tokens.color.primary,
     borderRadius: 1,
     height: 8,
     width: 8,
@@ -185,24 +179,63 @@ export const choicePickerStyles = StyleSheet.create({
   indicatorRadio: {
     borderRadius: 8,
   },
-  indicatorSelected: {
-    borderColor: tokens.color.primary,
-  },
+  indicatorSelected: {},
   label: {
-    color: tokens.color.onBackground,
-    fontSize: tokens.fontSize.s,
+    fontSize: lightTokens.fontSize.s,
     fontWeight: 'bold',
   },
   optionLabel: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: tokens.spacing.m,
+    gap: lightTokens.spacing.m,
   },
   optionText: {
-    color: tokens.color.onBackground,
-    fontSize: tokens.fontSize.m,
+    fontSize: lightTokens.fontSize.m,
   },
   options: {
-    gap: tokens.spacing.s,
+    gap: lightTokens.spacing.s,
   },
+})
+
+export const createChoicePickerTokenStyles = (tokens: A2uiTokens) => ({
+  chip: {
+    backgroundColor: tokens.color.surface,
+    borderColor: tokens.color.border,
+  },
+  chipLabel: {
+    color: tokens.color.onSurface,
+  },
+  chipLabelSelected: {
+    color: tokens.color.onPrimary,
+  },
+  chipSelected: {
+    backgroundColor: tokens.color.primary,
+    borderColor: tokens.color.primary,
+  },
+  chips: {},
+  filterInput: {
+    backgroundColor: tokens.color.input,
+    borderColor: tokens.color.border,
+    color: tokens.color.onInput,
+  },
+  host: {},
+  indicator: {
+    borderColor: tokens.color.border,
+  },
+  indicatorChecked: {
+    backgroundColor: tokens.color.primary,
+  },
+  indicatorCheckedRadio: {},
+  indicatorRadio: {},
+  indicatorSelected: {
+    borderColor: tokens.color.primary,
+  },
+  label: {
+    color: tokens.color.onBackground,
+  },
+  optionLabel: {},
+  optionText: {
+    color: tokens.color.onBackground,
+  },
+  options: {},
 })

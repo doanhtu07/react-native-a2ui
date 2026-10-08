@@ -1,67 +1,47 @@
-import type { ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native'
-
-export type AnyStyle = ViewStyle | TextStyle | ImageStyle
-
-/**
- * The style kind a sheet entry belongs to. Entries are inferred from literal
- * token values, so overrides are typed by kind, not by the exact values.
- * Text-only keys mark a text style, `resizeMode`/`tintColor` an image style.
- */
-export type StyleKind<Entry> = Entry extends { fontSize: unknown }
-  ? TextStyle
-  : Entry extends { fontWeight: unknown }
-    ? TextStyle
-    : Entry extends { fontStyle: unknown }
-      ? TextStyle
-      : Entry extends { color: unknown }
-        ? TextStyle
-        : Entry extends { tintColor: unknown }
-          ? ImageStyle
-          : ViewStyle
-
-/** Overrides for a component's style sheet: any of its keys, each optional. */
-export type StyleOverrides<Sheet> = {
-  [Key in keyof Sheet]?: StyleProp<StyleKind<Sheet[Key]>>
-}
+import type { StyleProp } from 'react-native'
+import type { AnyStyle } from './types'
 
 /**
- * Style overrides for components, keyed by component name, then by the key
- * in that component's style sheet. Each override is applied after the
- * component's own style for that key, so it wins.
+ * Three-layer merge for token-aware components, key by key:
+ * `[static, token, override]`.
  *
- * ```tsx
- * <A2uiSurface
- *   surface={surface}
- *   styles={{ Button: { primary: { backgroundColor: 'teal' } } }}
- * />
- * ```
+ * - `static`: `StyleSheet.create` at module level — structure plus
+ *   non-color token values. Built once.
+ * - `token`: plain-object colors resolved from `useA2uiTokens()` at render
+ *   (light/dark + host `tokens` overrides). Never `StyleSheet.create`.
+ * - `override`: the host's deeper `styles` override. Always last, so it wins
+ *   over both layers.
  *
- * The basic catalog's keys are typed in `A2uiStyles` (see `catalog/basic`).
- * Host catalog components read theirs with `useComponentStyles`.
+ * Keys with neither a token nor an override entry keep their static identity.
+ * Override-only keys (host catalogs) are appended as `[static, override]`.
  */
-export type A2uiStylesMap = Record<
-  string,
-  Record<string, StyleProp<AnyStyle>> | undefined
->
-
-/**
- * Merges overrides into a style sheet key by key: an overridden key becomes
- * `[default, override]`, so the override wins; other keys are unchanged.
- */
-export function mergeStyles<Sheet extends Record<string, AnyStyle>>(
-  defaultStyles: Sheet,
+export function mergeStyleLayers<Sheet extends Record<string, AnyStyle>>(
+  staticStyles: Sheet,
+  tokenStyles: Partial<Record<keyof Sheet, StyleProp<AnyStyle>>> | undefined,
   overrides: Record<string, StyleProp<AnyStyle>> | undefined,
 ): { [Key in keyof Sheet]: StyleProp<Sheet[Key]> } {
-  if (!overrides) {
-    return defaultStyles
+  if (!tokenStyles && !overrides) {
+    return staticStyles
   }
 
-  const merged: Record<string, StyleProp<AnyStyle>> = { ...defaultStyles }
+  const merged: Record<string, StyleProp<AnyStyle>> = { ...staticStyles }
 
-  for (const [key, override] of Object.entries(overrides)) {
-    if (override != null) {
-      merged[key] = [defaultStyles[key], override]
+  const keys = new Set<string>([
+    ...Object.keys(tokenStyles ?? {}),
+    ...Object.keys(overrides ?? {}),
+  ])
+
+  for (const key of keys) {
+    const token = tokenStyles?.[key as keyof Sheet]
+    const override = overrides?.[key]
+
+    if (token == null && override == null) {
+      continue
     }
+
+    merged[key] = [staticStyles[key], token, override].filter(
+      (entry) => entry != null,
+    ) as StyleProp<AnyStyle>
   }
 
   return merged as { [Key in keyof Sheet]: StyleProp<Sheet[Key]> }

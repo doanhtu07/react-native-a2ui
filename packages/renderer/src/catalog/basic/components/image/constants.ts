@@ -1,0 +1,2 @@
+export const SMALL_FEATURE_MAX_WIDTH = 100
+export const LARGE_FEATURE_MAX_HEIGHT = 400

@@ -1,0 +1,58 @@
+import { createContext, useContext, useMemo } from 'react'
+import { useColorScheme } from 'react-native'
+
+import {
+  darkTokens,
+  lightTokens,
+  mergeTokens,
+  type A2uiThemeMode,
+  type A2uiTokenOverrides,
+  type A2uiTokens,
+} from '../..'
+
+const A2uiTokensContext = createContext<A2uiTokens>(lightTokens)
+
+export const A2uiTokensProvider = A2uiTokensContext.Provider
+
+/** The resolved token set for the current surface. */
+export function useA2uiTokens(): A2uiTokens {
+  return useContext(A2uiTokensContext)
+}
+
+export type ResolveTokensOptions = {
+  /** Partial overrides for the light token set (quick theme swap). */
+  lightTokens?: A2uiTokenOverrides
+
+  /** Partial overrides for the dark token set (quick theme swap). */
+  darkTokens?: A2uiTokenOverrides
+}
+
+/**
+ * Resolves a theme mode to a concrete token set, mirroring
+ * `useResolvedAskAITheme`: `auto` follows the OS color scheme live via
+ * `useColorScheme`. Partial `tokens` / `darkTokens` overrides are deep
+ * merged over the defaults for the active scheme.
+ */
+export function useResolvedA2uiTokens(
+  mode: A2uiThemeMode = 'auto',
+  overrides: ResolveTokensOptions = {},
+): A2uiTokens {
+  const { lightTokens: lightOverrides, darkTokens: darkOverrides } = overrides
+
+  const systemScheme = useColorScheme()
+
+  const isDark = useMemo(() => {
+    if (mode === 'dark') {
+      return
+    }
+    return mode === 'light' ? false : systemScheme === 'dark'
+  }, [mode, systemScheme])
+
+  return useMemo(
+    () =>
+      isDark
+        ? mergeTokens(darkTokens, darkOverrides)
+        : mergeTokens(lightTokens, lightOverrides),
+    [isDark, lightOverrides, darkOverrides],
+  )
+}

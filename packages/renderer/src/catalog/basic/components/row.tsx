@@ -3,9 +3,8 @@ import { StyleSheet, View } from 'react-native'
 
 import { createComponentImplementation } from '../../../adapter'
 import { useComponentStyles } from '../../../styles/styles'
-import { tokens } from '../tokens'
-import { getWeightStyle, mapAlign, mapJustify } from '../utils'
-import { ChildList } from './child-list'
+import { ChildList } from './child-list/child-list'
+import { mapAlign, mapJustify, getWeightStyle, lightTokens } from '../styles'
 
 export const Row = createComponentImplementation(
   RowApi,
@@ -42,6 +41,6 @@ export const Row = createComponentImplementation(
 export const rowStyles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    gap: tokens.spacing.m,
+    gap: lightTokens.spacing.m,
   },
 })
