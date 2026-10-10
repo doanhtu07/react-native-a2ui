@@ -70,7 +70,7 @@
     "@jest/globals": "^30.5.2",
     "@react-native/babel-preset": "0.86.3",
     "@react-native/eslint-config": "0.86.3",
-    "@react-native/jest-preset": "0.86.3",
+    "@react-native/jest-preset": "0.87.1",
     "@the-polyfills/random-uuid": "^2.0.0",
     "@types/react": "~19.2.4",
     "del-cli": "^7.0.0",
