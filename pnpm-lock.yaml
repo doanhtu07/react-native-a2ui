@@ -330,8 +330,8 @@ importers:
         specifier: ^30.5.2
         version: 30.5.2(supports-color@5.5.0)
       '@react-native/babel-preset':
-        specifier: 0.86.3
-        version: 0.86.3(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)
+        specifier: 0.87.1
+        version: 0.87.1(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)
       '@react-native/eslint-config':
         specifier: 0.86.3
         version: 0.86.3(eslint@10.12.0(jiti@2.6.1)(supports-color@5.5.0))(jest@30.5.2(@types/node@26.6.4)(supports-color@5.5.0))(prettier@3.9.9)(supports-color@5.5.0)(typescript@6.0.3)
@@ -2278,12 +2278,6 @@ packages:
   '@react-native/babel-plugin-codegen@0.87.1':
     resolution: {integrity: sha512-DfnyLAHG7jH4pqeID7ib6AeD6gG8T+KvM3c/w/yEa5ONkfRcHvTC8JMIRdhUqs4ruA+8xbYcNVQzewYRCPm1Xw==}
     engines: {node: ^22.13.0 || ^24.3.0 || >= 26.0.0}
-
-  '@react-native/babel-preset@0.86.3':
-    resolution: {integrity: sha512-/eqs/Hy9RZRcjdcs4wj3Cqmxvtb3NM5g+Uuh1RIvsjynMO8PRsrVWWLWgBcZL/jYUo+ogXd2NFB0W8L5Bg89xw==}
-    engines: {node: ^20.19.4 || ^22.13.0 || ^24.3.0 || >= 25.0.0}
-    peerDependencies:
-      '@babel/core': '*'
 
   '@react-native/babel-preset@0.87.1':
     resolution: {integrity: sha512-EN1oo8IqsJgq++na/buq6hYsdZJY5A8+URohSA620eGz5a+322WOAcBuvcYZTeovYwR2NegvpPk5h+QVk8iUMw==}
@@ -8407,7 +8401,7 @@ snapshots:
       '@expo/config-types': 57.0.2
       '@expo/json-file': 11.0.1
       '@expo/plist': 0.8.1
-      '@expo/require-utils': 57.0.5(supports-color@8.1.1)(typescript@6.0.3)
+      '@expo/require-utils': 57.0.6(supports-color@8.1.1)(typescript@6.0.3)
       '@expo/sdk-runtime-versions': 1.0.1
       chalk: 4.1.2
       debug: 4.4.3(supports-color@8.1.1)
@@ -9510,18 +9504,18 @@ snapshots:
 
   '@react-native/assets-registry@0.86.3': {}
 
-  '@react-native/babel-plugin-codegen@0.86.3(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)':
-    dependencies:
-      '@babel/traverse': 7.29.8(supports-color@5.5.0)
-      '@react-native/codegen': 0.86.3(@babel/core@7.29.7(supports-color@5.5.0))
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-
   '@react-native/babel-plugin-codegen@0.86.3(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
       '@babel/traverse': 7.29.8(supports-color@8.1.1)
       '@react-native/codegen': 0.86.3(@babel/core@7.29.7(supports-color@8.1.1))
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+
+  '@react-native/babel-plugin-codegen@0.87.1(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)':
+    dependencies:
+      '@babel/traverse': 7.29.8(supports-color@5.5.0)
+      '@react-native/codegen': 0.87.1(@babel/core@7.29.7(supports-color@5.5.0))
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -9534,7 +9528,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  '@react-native/babel-preset@0.86.3(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)':
+  '@react-native/babel-preset@0.87.1(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@5.5.0)
       '@babel/plugin-proposal-export-default-from': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
@@ -9565,8 +9559,8 @@ snapshots:
       '@babel/plugin-transform-runtime': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)
       '@babel/plugin-transform-typescript': 7.29.9(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)
       '@babel/plugin-transform-unicode-regex': 7.29.7(@babel/core@7.29.7(supports-color@5.5.0))
-      '@react-native/babel-plugin-codegen': 0.86.3(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)
-      babel-plugin-syntax-hermes-parser: 0.36.0
+      '@react-native/babel-plugin-codegen': 0.87.1(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0)
+      babel-plugin-syntax-hermes-parser: 0.36.1
       babel-plugin-transform-flow-enums: 0.0.2(@babel/core@7.29.7(supports-color@5.5.0))
       react-refresh: 0.14.2
     transitivePeerDependencies:
@@ -9625,6 +9619,16 @@ snapshots:
       '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/parser': 7.29.9
       hermes-parser: 0.36.0
+      invariant: 2.2.4
+      nullthrows: 1.1.1
+      tinyglobby: 0.2.17
+      yargs: 17.7.3
+
+  '@react-native/codegen@0.87.1(@babel/core@7.29.7(supports-color@5.5.0))':
+    dependencies:
+      '@babel/core': 7.29.7(supports-color@5.5.0)
+      '@babel/parser': 7.29.9
+      hermes-parser: 0.36.1
       invariant: 2.2.4
       nullthrows: 1.1.1
       tinyglobby: 0.2.17
